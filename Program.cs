@@ -37,13 +37,27 @@
         {
             if (pattern.Length == 1)
             {
-                return inputLine.Contains(pattern);
+                return MatchCharacter(inputLine, pattern);
+            }
+            else if (pattern == "\\d")
+            {
+                return MatchDigit(inputLine);
             }
             else
             {
                 throw new InvalidDataException(string.Format("Unhandled pattern: {0}", pattern));
             }
-        } 
+        }
+
+        private static bool MatchDigit(string inputLine)
+        {
+            return inputLine.Any(char.IsDigit);
+        }
+
+        private static bool MatchCharacter(string inputLine, string pattern)
+        {
+            return inputLine.Contains(pattern);
+        }
     }
 
     
