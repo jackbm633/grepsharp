@@ -41,7 +41,7 @@
             }
             else
             {
-                throw new InvalidDataException($"Unhandled pattern: {pattern}");
+                throw new InvalidDataException(string.Format("Unhandled pattern: {0}", pattern));
             }
         } 
     }
