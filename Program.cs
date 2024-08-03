@@ -1,4 +1,6 @@
-﻿namespace GrepSharp
+﻿using System.Runtime.InteropServices;
+
+namespace GrepSharp
 {
     internal static class Program
     {
@@ -47,10 +49,20 @@
             {
                 return MatchAlpha(inputLine);
             }
+            else if (pattern.StartsWith('['))
+            {
+                return MatchPositiveCharGroup(inputLine, pattern);
+            }
             else
             {
                 throw new InvalidDataException(string.Format("Unhandled pattern: {0}", pattern));
             }
+        }
+
+        private static bool MatchPositiveCharGroup(string inputLine, string pattern)
+        {
+            var chars = pattern[1..^1];
+            return inputLine.Any(chars.Contains);
         }
 
         private static bool MatchAlpha(string inputLine)
