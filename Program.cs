@@ -43,10 +43,19 @@
             {
                 return MatchDigit(inputLine);
             }
+            else if (pattern == "\\w")
+            {
+                return MatchAlpha(inputLine);
+            }
             else
             {
                 throw new InvalidDataException(string.Format("Unhandled pattern: {0}", pattern));
             }
+        }
+
+        private static bool MatchAlpha(string inputLine)
+        {
+            return inputLine.Any(char.IsLetterOrDigit);
         }
 
         private static bool MatchDigit(string inputLine)
