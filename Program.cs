@@ -53,12 +53,21 @@ namespace GrepSharp
             {
                 return MatchPositiveCharGroup(inputLine, pattern);
             }
+            else if (pattern.StartsWith("[^"))
+            {
+                return MatchNegativeCharGroup(inputLine, pattern);
+            }
             else
             {
                 throw new InvalidDataException(string.Format("Unhandled pattern: {0}", pattern));
             }
         }
 
+        private static bool MatchNegativeCharGroup(string inputLine, string pattern)
+        {
+            var chars = pattern[2..^1];
+            return inputLine.Any((c) => !chars.Contains(c));
+        }
         private static bool MatchPositiveCharGroup(string inputLine, string pattern)
         {
             var chars = pattern[1..^1];
